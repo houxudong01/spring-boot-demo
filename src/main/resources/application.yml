@@ -1,6 +1,7 @@
 #日常环境
 
-server.port: 8080
+
+server.port: 12345
 
 #日志彩色输出
 spring.output.ansi.enabled: detect
@@ -36,7 +37,24 @@ spring:
     rest:
       uris: http://localhost:9200
 
-
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
+
+#producer
+rocketmq:
+  producer:
+    isOnOff: on #该应用是否启用生产者
+    groupName: rocket_group
+    namesrvAddr: 127.0.0.1:9876
+    maxMessageSize: 4096
+    sendMsgTimeout: 3000
+    retryTimesWhenSendFailed: 2
+  consumer:
+    isOnOff: on #该应用是否启用消费者
+    groupName: rocket_group
+    namesrvAddr: 127.0.0.1:9876
+    topics: DemoTopic
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    consumeMessageBatchMaxSize: 1

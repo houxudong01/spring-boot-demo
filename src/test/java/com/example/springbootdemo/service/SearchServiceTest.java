@@ -1,5 +1,6 @@
 package com.example.springbootdemo.service;
 
+import com.example.springbootdemo.pojo.Article;
 import com.example.springbootdemo.pojo.Student;
 import com.example.springbootdemo.util.JsonUtil;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -35,40 +36,44 @@ public class SearchServiceTest {
 
     @Test
     public void createIndex() {
-        Boolean aBoolean = this.searchService.createIndex("students");
+        Boolean aBoolean = this.searchService.createIndex("zh_articles");
         System.out.println(aBoolean);
     }
 
     @Test
     public void isExistingIndex() throws IOException {
-        Boolean existingIndex = this.searchService.isExistingIndex("students");
+        Boolean existingIndex = this.searchService.isExistingIndex("zh_articles");
         System.out.println(existingIndex);
     }
 
     @Test
     public void indexDocument() throws IOException {
-        Student student = new Student();
-        student.setId("1");
-        student.setClassId("1");
-        student.setName("张三三");
-        student.setAddress("山西省忻州市宁武县怀道乡官地村");
-        String s = JsonUtil.writeValueAsString(student);
-        IndexResponse response = this.searchService.indexDocument("students", "1", s);
+        Article article = new Article();
+        article.setId(3);
+        article.setTitle("深入理解 spring cloud");
+        article.setContent("深入理解 spring cloud, mybatis");
+        article.setAuthor("方志朋");
+        article.setLikes(15);
+        article.setVersion(2);
+        String s = JsonUtil.writeValueAsString(article);
+        IndexResponse response = this.searchService.indexDocument("zh_articles", "4", s);
         System.out.println(response);
     }
 
     @Test
     public void indexDocuments() throws IOException {
         Map<String, Object> map = new HashMap<>(16);
-        for (Integer i = 2; i < 10; i++) {
-            Student student = new Student();
-            student.setId(i.toString());
-            student.setClassId(i.toString());
-            student.setName("张三三" + i);
-            student.setAddress("山西省忻州市宁武县" + i);
-            map.put(i.toString(), JsonUtil.writeValueAsString(student));
+        for (Integer i = 1; i <= 3; i++) {
+            Article article = new Article();
+            article.setId(i);
+            article.setTitle("jfjj");
+            article.setContent("fff");
+            article.setAuthor("fff");
+            article.setLikes(i);
+            article.setVersion(i + 3);
+            map.put(i.toString(), JsonUtil.writeValueAsString(article));
         }
-        BulkResponse bulkResponse = this.searchService.indexDocuments("students", map);
+        BulkResponse bulkResponse = this.searchService.indexDocuments("zh_articles", map);
         System.out.println(bulkResponse);
     }
 
