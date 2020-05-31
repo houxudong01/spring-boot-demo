@@ -1,7 +1,9 @@
 #日常环境
 
-
-server.port: 12345
+server:
+  port: 12345
+  servlet:
+    context-path: /api
 
 #日志彩色输出
 spring.output.ansi.enabled: detect
@@ -58,3 +60,7 @@ rocketmq:
     consumeThreadMin: 20
     consumeThreadMax: 64
     consumeMessageBatchMaxSize: 1
+
+swagger:
+  enabled: true
+  title: "Spring Boot demo 项目 API 文档"
