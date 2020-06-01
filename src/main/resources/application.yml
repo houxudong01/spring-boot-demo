@@ -8,6 +8,8 @@ server:
 #日志彩色输出
 spring.output.ansi.enabled: detect
 
+security.basic.enabled: false
+
 #redis
 spring.redis:
   # Redis数据库索引（默认为0）
@@ -38,6 +40,13 @@ spring:
   elasticsearch:
     rest:
       uris: http://localhost:9200
+  messages:
+    basename: i18n/messages
+    encodeing: UTF-8
+#  security:
+#    csrf:
+#      enabled: true
+#      url.execlude: /open/**, /swagger-ui.html
 
 mybatis:
   configuration:

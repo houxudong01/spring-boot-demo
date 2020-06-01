@@ -1,6 +1,6 @@
 package com.example.springbootdemo.Dao;
 
-import com.example.springbootdemo.dao.UserDao;
+import com.example.springbootdemo.dao.UserMapper;
 import com.example.springbootdemo.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,21 +18,21 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserDaoTest {
+public class UserMapperTest {
 
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
     @Test
     public void save() {
         User user = new User("user1", "user1", null);
-        int save = this.userDao.save(user);
+        int save = this.userMapper.save(user);
         assertEquals(1, save);
     }
 
     @Test
     public void listAll() {
-        List<User> users = this.userDao.listAll();
+        List<User> users = this.userMapper.listAll();
         assertTrue(!users.isEmpty());
     }
 }

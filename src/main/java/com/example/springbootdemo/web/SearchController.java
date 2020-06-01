@@ -1,6 +1,6 @@
 package com.example.springbootdemo.web;
 
-import com.example.springbootdemo.pojo.ApiResult;
+import com.example.springbootdemo.util.ApiResult;
 import com.example.springbootdemo.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

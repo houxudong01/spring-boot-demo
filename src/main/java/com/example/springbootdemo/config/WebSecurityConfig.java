@@ -15,9 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                // 关闭csrf保护功能（跨域访问）
-                .csrf().disable();
+        http.csrf().disable();
     }
 
 }

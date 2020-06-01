@@ -15,15 +15,41 @@ import java.util.List;
  */
 @Mapper
 @Repository
-public interface UserDao {
+public interface UserMapper {
 
+    /**
+     * 保存 user
+     *
+     * @param user
+     * @return
+     */
     @Insert("insert into user (username, password, birthday) values(#{username}, #{password}, #{birthday})")
     @Options(useGeneratedKeys = true)
     int save(User user);
 
+    /**
+     * 根据根据用户 id 获取用心详情
+     *
+     * @param id
+     * @return
+     */
     @Select("select * from user where id = #{id}")
     User getById(Long id);
 
+    /**
+     * 根据用户名获取用户详情
+     *
+     * @param username
+     * @return
+     */
+    @Select("select * from user where username = #{username}")
+    User getByUsername(String username);
+
+    /**
+     * 列出全部用户
+     *
+     * @return
+     */
     @Select("select * from user")
     List<User> listAll();
 }

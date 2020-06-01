@@ -1,6 +1,7 @@
 package com.example.springbootdemo.config;
 
 import com.example.springbootdemo.interceptor.CommonInterceptor;
+import com.example.springbootdemo.interceptor.RedisSessionInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,9 +9,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 /**
  * @author HouXudong
@@ -42,9 +44,21 @@ public class ApplicationConfig {
             return new CommonInterceptor();
         }
 
+        @Bean
+        public RedisSessionInterceptor redisSessionInterceptor() {
+            return new RedisSessionInterceptor();
+        }
+
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(commonInterceptor());
+            registry.addInterceptor(redisSessionInterceptor());
         }
+    }
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        return resolver;
     }
 }

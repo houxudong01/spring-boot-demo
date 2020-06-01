@@ -1,12 +1,13 @@
 package com.example.springbootdemo.web;
 
-import com.example.springbootdemo.pojo.ApiResult;
+import com.example.springbootdemo.util.ApiResult;
 import com.example.springbootdemo.pojo.User;
 import com.example.springbootdemo.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,11 @@ public class UserController {
     public ApiResult<User> register(@RequestParam String username, @RequestParam String password, Date birthday) throws JsonProcessingException {
         User user = this.userService.saveUser(username, password, birthday);
         return new ApiResult<>(user);
+    }
+
+    @PostMapping("/login")
+    public ApiResult<User> login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
+        return new ApiResult<>(this.userService.login(username, password, request));
     }
 
     @GetMapping("/getUser")
