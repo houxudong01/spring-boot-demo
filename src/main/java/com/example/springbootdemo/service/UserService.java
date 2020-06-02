@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author HouXudong
@@ -33,21 +34,21 @@ public class UserService {
     @Autowired
     private RedisService redisService;
 
-    private static final String CACHE_KEY_PREFIX = "user-";
+    public static final String CACHE_KEY_PREFIX = "USER_TOKEN_";
 
     /**
      * 用户注册
      *
      * @param username
      * @param password
-     * @param birthday
      * @return
      * @throws JsonProcessingException
      */
-    public User saveUser(String username, String password, Date birthday) throws JsonProcessingException {
-        User user = new User(username, password, birthday);
+    public User saveUser(String username, String password) throws JsonProcessingException {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         this.userMapper.save(user);
-        this.redisService.set(CACHE_KEY_PREFIX + user.getId(), JsonUtil.writeValueAsString(user));
         return user;
     }
 
@@ -67,10 +68,12 @@ public class UserService {
         if (!dbPassword.equals(password)) {
             throw new UserNoticeException(HttpStatus.BAD_REQUEST.value(), MessageCodeConsts.USER_PASSWORD_INVALID);
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("loginUserId", user.getId());
-        this.redisService.set("loginUser:" + user.getId(), session.getId());
 
+        // 登录后生成 token，同时保存在数据库和redis中
+        String userToken = UUID.randomUUID().toString();
+        this.redisService.set(CACHE_KEY_PREFIX + user.getId(), userToken, 5L);
+        this.userMapper.updateUserToken(user.getId(), userToken);
+        user.setToken(userToken);
         return user;
     }
 

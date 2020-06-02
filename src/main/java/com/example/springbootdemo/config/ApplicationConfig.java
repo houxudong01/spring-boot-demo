@@ -1,7 +1,7 @@
 package com.example.springbootdemo.config;
 
 import com.example.springbootdemo.interceptor.CommonInterceptor;
-import com.example.springbootdemo.interceptor.RedisSessionInterceptor;
+import com.example.springbootdemo.interceptor.UserLoginInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,14 +45,14 @@ public class ApplicationConfig {
         }
 
         @Bean
-        public RedisSessionInterceptor redisSessionInterceptor() {
-            return new RedisSessionInterceptor();
+        public UserLoginInterceptor userLoginInterceptor() {
+            return new UserLoginInterceptor();
         }
 
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
             registry.addInterceptor(commonInterceptor());
-            registry.addInterceptor(redisSessionInterceptor());
+            registry.addInterceptor(userLoginInterceptor());
         }
     }
 

@@ -18,6 +18,8 @@ public class User {
     @JsonIgnore
     private String password;
 
+    private String token;
+
     private Date birthday;
 
     private Date gmtCreate;
@@ -31,6 +33,14 @@ public class User {
         this.username = username;
         this.password = password;
         this.birthday = birthday;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Long getId() {
@@ -87,6 +97,7 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
                 ", birthday=" + birthday +
                 ", gmtCreate=" + gmtCreate +
                 ", gmtModified=" + gmtModified +

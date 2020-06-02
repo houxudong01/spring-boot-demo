@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+
 /**
  * @author HouXudong
  * @date 2019-09-05
@@ -25,11 +27,22 @@ public class RedisService {
             logger.error("redis exception: ", e);
             return false;
         }
-        return false;
+        return true;
+    }
+
+    public Boolean set(String key, Object value, Long timeout) {
+        try {
+            this.redisTemplate.opsForValue().set(key, value, Duration.ofMinutes(timeout));
+        } catch (Exception e) {
+            logger.error("redis exception: ", e);
+            return false;
+        }
+        return true;
     }
 
     public Object get(String key) {
         Object value = this.redisTemplate.opsForValue().get(key);
         return value;
     }
+
 }

@@ -11,4 +11,5 @@ public class MessageCodeConsts {
     public static final String UNKNOW_ERROR = "";
     public static final String NOT_FOUND_USER = "not.found.user";
     public static final String USER_PASSWORD_INVALID = "user.password.error";
+    public static final String USER_TOKEN_INVALID = "user.token.invalid";
 }

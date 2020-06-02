@@ -24,8 +24,8 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ApiResult<User> register(@RequestParam String username, @RequestParam String password, Date birthday) throws JsonProcessingException {
-        User user = this.userService.saveUser(username, password, birthday);
+    public ApiResult<User> register(@RequestParam String username, @RequestParam String password) throws JsonProcessingException {
+        User user = this.userService.saveUser(username, password);
         return new ApiResult<>(user);
     }
 
