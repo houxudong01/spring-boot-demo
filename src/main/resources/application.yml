@@ -43,6 +43,10 @@ spring:
   messages:
     basename: i18n/messages
     encodeing: UTF-8
+  # dubbo provider 自动配置参数，具体请参考：{@link com.alibaba.dubbo.spring.boot.DubboProviderAutoConfiguration}
+  dubbo:
+    appname: dubbo-provider
+    registry: zookeeper://127.0.0.1:2181
 #  security:
 #    csrf:
 #      enabled: true
