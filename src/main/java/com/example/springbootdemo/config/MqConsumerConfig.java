@@ -54,6 +54,7 @@ public class MqConsumerConfig {
         // 设置一次消费消息的条数，默认为 1 条
         consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
 
+
         try {
             // 设置该消费者订阅的主题和tag，如果是订阅该主题下的所有tag，使用*；
             consumer.subscribe(topics, "*");
